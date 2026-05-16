@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Backend Connection Test</title>
+    <style>
+        body { font-family: Arial, sans-serif; margin: 20px; }
+        .test { margin: 20px 0; padding: 15px; border: 1px solid #ddd; border-radius: 5px; }
+        .success { background: #d4edda; border-color: #c3e6cb; }
+        .error { background: #f8d7da; border-color: #f5c6cb; }
+        .pending { background: #fff3cd; border-color: #ffeaa7; }
+        button { padding: 10px 20px; margin: 5px; cursor: pointer; }
+        pre { background: #f8f9fa; padding: 10px; border-radius: 4px; overflow-x: auto; }
+    </style>
+</head>
+<body>
+    <h1>Backend Connection Test</h1>
+    
+    <div id="health-test" class="test pending">
+        <h3>1. Health Check</h3>
+        <button onclick="testHealth()">Test Backend Health</button>
+        <div id="health-result"></div>
+    </div>
+    
+    <div id="register-test" class="test pending">
+        <h3>2. Registration Test</h3>
+        <button onclick="testRegistration()">Test User Registration</button>
+        <div id="register-result"></div>
+    </div>
+    
+    <div id="login-test" class="test pending">
+        <h3>3. Login Test</h3>
+        <button onclick="testLogin()">Test User Login</button>
+        <div id="login-result"></div>
+    </div>
+    
+    <div id="summary" class="test">
+        <h3>Connection Summary</h3>
+        <div id="summary-result">Click "Run All Tests" to check everything</div>
+        <button onclick="runAllTests()">Run All Tests</button>
+    </div>
+
+    <script>
+        const BASE_URL = 'http://localhost:8080';
+        
+        async function testHealth() {
+            const resultDiv = document.getElementById('health-result');
+            const testDiv = document.getElementById('health-test');
+            
+            try {
+                console.log('Testing health endpoint...');
+                const response = await fetch(`${BASE_URL}/health`);
+                const data = await response.json();
+                
+                if (response.ok) {
+                    testDiv.className = 'test success';
+                    resultDiv.innerHTML = `
+                        <p>✅ Backend is healthy!</p>
+                        <pre>${JSON.stringify(data, null, 2)}</pre>
+                    `;
+                } else {
+                    throw new Error(`Status: ${response.status}`);
+                }
+            } catch (error) {
+                testDiv.className = 'test error';
+                resultDiv.innerHTML = `
+                    <p>❌ Health check failed!</p>
+                    <p>Error: ${error.message}</p>
+                    <p>This means the backend is not accessible from the browser.</p>
+                `;
+            }
+        }
+        
+        async function testRegistration() {
+            const resultDiv = document.getElementById('register-result');
+            const testDiv = document.getElementById('register-test');
+            
+            try {
+                const userData = {
+                    name: 'Test User',
+                    email: 'test.connection@example.com',
+                    password: 'password123',
+                    role: 'CUSTOMER'
+                };
+                
+                console.log('Testing registration...');
+                const response = await fetch(`${BASE_URL}/auth/register`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify(userData),
+                });
+                
+                const data = await response.json();
+                
+                if (response.ok) {
+                    testDiv.className = 'test success';
+                    resultDiv.innerHTML = `
+                        <p>✅ Registration successful!</p>
+                        <pre>${JSON.stringify(data, null, 2)}</pre>
+                    `;
+                } else {
+                    testDiv.className = 'test error';
+                    resultDiv.innerHTML = `
+                        <p>❌ Registration failed!</p>
+                        <p>Status: ${response.status}</p>
+                        <pre>${JSON.stringify(data, null, 2)}</pre>
+                    `;
+                }
+            } catch (error) {
+                testDiv.className = 'test error';
+                resultDiv.innerHTML = `
+                    <p>❌ Registration failed with network error!</p>
+                    <p>Error: ${error.message}</p>
+                    <p>This is likely the same error you're getting in the React app.</p>
+                `;
+            }
+        }
+        
+        async function testLogin() {
+            const resultDiv = document.getElementById('login-result');
+            const testDiv = document.getElementById('login-test');
+            
+            try {
+                const loginData = {
+                    email: 'admin@test.com',
+                    password: 'admin123'
+                };
+                
+                console.log('Testing login...');
+                const response = await fetch(`${BASE_URL}/auth/login`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify(loginData),
+                });
+                
+                const data = await response.json();
+                
+                if (response.ok) {
+                    testDiv.className = 'test success';
+                    resultDiv.innerHTML = `
+                        <p>✅ Login successful!</p>
+                        <pre>${JSON.stringify(data, null, 2)}</pre>
+                    `;
+                } else {
+                    testDiv.className = 'test error';
+                    resultDiv.innerHTML = `
+                        <p>❌ Login failed!</p>
+                        <p>Status: ${response.status}</p>
+                        <pre>${JSON.stringify(data, null, 2)}</pre>
+                    `;
+                }
+            } catch (error) {
+                testDiv.className = 'test error';
+                resultDiv.innerHTML = `
+                    <p>❌ Login failed with network error!</p>
+                    <p>Error: ${error.message}</p>
+                    <p>This is likely the same error you're getting in the React app.</p>
+                `;
+            }
+        }
+        
+        async function runAllTests() {
+            await testHealth();
+            await new Promise(resolve => setTimeout(resolve, 1000));
+            await testRegistration();
+            await new Promise(resolve => setTimeout(resolve, 1000));
+            await testLogin();
+            
+            const summaryDiv = document.getElementById('summary-result');
+            const tests = document.querySelectorAll('.test');
+            const successCount = document.querySelectorAll('.test.success').length;
+            const errorCount = document.querySelectorAll('.test.error').length;
+            
+            if (errorCount === 0) {
+                summaryDiv.innerHTML = `
+                    <p>✅ All tests passed! Backend is accessible.</p>
+                    <p>You should be able to use the React app normally.</p>
+                `;
+            } else {
+                summaryDiv.innerHTML = `
+                    <p>❌ ${errorCount} test(s) failed. Backend connection issues detected.</p>
+                    <p>This explains the "Network error" in the React app.</p>
+                    <p><strong>Solution:</strong> Check browser console for CORS errors.</p>
+                `;
+            }
+        }
+        
+        // Auto-run health test on page load
+        window.onload = () => {
+            testHealth();
+        };
+    </script>
+</body>
+</html>

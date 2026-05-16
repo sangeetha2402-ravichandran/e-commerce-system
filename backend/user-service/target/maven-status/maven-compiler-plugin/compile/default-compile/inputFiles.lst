@@ -1,0 +1,14 @@
+C:\Users\SANGEETHA RAVI\source\e-commerce-system\backend\user-service\src\main\java\com\ecommerce\userservice\security\JwtUtil.java
+C:\Users\SANGEETHA RAVI\source\e-commerce-system\backend\user-service\src\main\java\com\ecommerce\userservice\entity\UserAddress.java
+C:\Users\SANGEETHA RAVI\source\e-commerce-system\backend\user-service\src\main\java\com\ecommerce\userservice\entity\User.java
+C:\Users\SANGEETHA RAVI\source\e-commerce-system\backend\user-service\src\main\java\com\ecommerce\userservice\dto\RegisterRequest.java
+C:\Users\SANGEETHA RAVI\source\e-commerce-system\backend\user-service\src\main\java\com\ecommerce\userservice\repository\UserAddressRepository.java
+C:\Users\SANGEETHA RAVI\source\e-commerce-system\backend\user-service\src\main\java\com\ecommerce\userservice\config\SecurityConfig.java
+C:\Users\SANGEETHA RAVI\source\e-commerce-system\backend\user-service\src\main\java\com\ecommerce\userservice\dto\AuthRequest.java
+C:\Users\SANGEETHA RAVI\source\e-commerce-system\backend\user-service\src\main\java\com\ecommerce\userservice\entity\UserRole.java
+C:\Users\SANGEETHA RAVI\source\e-commerce-system\backend\user-service\src\main\java\com\ecommerce\userservice\dto\AuthResponse.java
+C:\Users\SANGEETHA RAVI\source\e-commerce-system\backend\user-service\src\main\java\com\ecommerce\userservice\controller\AuthController.java
+C:\Users\SANGEETHA RAVI\source\e-commerce-system\backend\user-service\src\main\java\com\ecommerce\userservice\UserServiceApplication.java
+C:\Users\SANGEETHA RAVI\source\e-commerce-system\backend\user-service\src\main\java\com\ecommerce\userservice\controller\MockAuthController.java
+C:\Users\SANGEETHA RAVI\source\e-commerce-system\backend\user-service\src\main\java\com\ecommerce\userservice\repository\UserRepository.java
+C:\Users\SANGEETHA RAVI\source\e-commerce-system\backend\user-service\src\main\java\com\ecommerce\userservice\service\AuthService.java

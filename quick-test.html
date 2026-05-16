@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Quick Backend Test</title>
+</head>
+<body>
+    <h1>Quick Backend Connection Test</h1>
+    <button onclick="testBackend()">Test Backend Connection</button>
+    <div id="result"></div>
+    
+    <script>
+        async function testBackend() {
+            const resultDiv = document.getElementById('result');
+            
+            try {
+                // Test health endpoint
+                const healthResponse = await fetch('http://localhost:8080/health');
+                const healthData = await healthResponse.json();
+                
+                // Test login
+                const loginResponse = await fetch('http://localhost:8080/auth/login', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        email: 'admin@test.com',
+                        password: 'admin123'
+                    })
+                });
+                
+                const loginData = await loginResponse.json();
+                
+                if (loginResponse.ok) {
+                    resultDiv.innerHTML = `
+                        <h2>✅ SUCCESS! Backend is accessible from browser</h2>
+                        <p>Health: ${healthData.status}</p>
+                        <p>Login: Successful for ${loginData.name}</p>
+                        <p><strong>You can now use the React app normally!</strong></p>
+                        <p>Go to <a href="http://localhost:3000" target="_blank">http://localhost:3000</a></p>
+                    `;
+                } else {
+                    resultDiv.innerHTML = `
+                        <h2>❌ Login failed</h2>
+                        <p>Error: ${loginData.message}</p>
+                    `;
+                }
+            } catch (error) {
+                resultDiv.innerHTML = `
+                    <h2>❌ Still getting network error</h2>
+                    <p>Error: ${error.message}</p>
+                    <p>This means CORS is still blocking the connection.</p>
+                `;
+            }
+        }
+        
+        // Auto-test on page load
+        window.onload = testBackend;
+    </script>
+</body>
+</html>

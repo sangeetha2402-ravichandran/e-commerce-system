@@ -1,0 +1,123 @@
+.App {
+  text-align: center;
+}
+
+.App-logo {
+  height: 40vmin;
+  pointer-events: none;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .App-logo {
+    animation: App-logo-spin infinite 20s linear;
+  }
+}
+
+.App-header {
+  background-color: #282c34;
+  padding: 20px;
+  color: white;
+}
+
+.App-link {
+  color: #61dafb;
+}
+
+@keyframes App-logo-spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.line-clamp-2 {
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+/* iOS and mobile compatibility fixes */
+@supports (-webkit-touch-callout: none) {
+  /* iOS specific styles */
+  * {
+    -webkit-tap-highlight-color: transparent;
+  }
+  
+  input, textarea, select {
+    font-size: 16px !important;
+    -webkit-appearance: none;
+    appearance: none;
+    border-radius: 0;
+  }
+  
+  button {
+    -webkit-appearance: none;
+    appearance: none;
+    -webkit-user-select: none;
+    user-select: none;
+  }
+  
+  .hover\:bg-gray-50:hover {
+    -webkit-tap-highlight-color: transparent;
+  }
+  
+  .focus\:ring-2:focus {
+    -webkit-tap-highlight-color: transparent;
+  }
+}
+
+/* Fix iOS scrolling and zoom issues */
+body {
+  -webkit-overflow-scrolling: touch;
+  overscroll-behavior: none;
+  touch-action: manipulation;
+}
+
+/* Fix iOS viewport issues */
+@viewport {
+  width: device-width;
+  zoom: 1.0;
+}
+
+/* Fix iOS input focus zoom */
+input:focus,
+textarea:focus,
+select:focus {
+  font-size: 16px !important;
+  transform: scale(1);
+  transform-origin: left top;
+}
+
+/* Fix iOS button hover states */
+@media (hover: none) and (pointer: coarse) {
+  button:hover {
+    background-color: inherit;
+  }
+  
+  .hover\:bg-gray-100:hover {
+    background-color: inherit;
+  }
+  
+  .hover\:bg-indigo-700:hover {
+    background-color: inherit;
+  }
+}
+
+/* Fix iOS table scrolling */
+.overflow-x-auto {
+  -webkit-overflow-scrolling: touch;
+}
+
+/* Fix iOS modal backdrop issues */
+.fixed {
+  -webkit-transform: translateZ(0);
+}
+
+/* Fix iOS sidebar issues */
+.sidebar-fixed {
+  -webkit-transform: translateZ(0);
+  will-change: transform;
+}
