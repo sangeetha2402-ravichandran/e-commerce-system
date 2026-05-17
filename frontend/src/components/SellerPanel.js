@@ -1,7 +1,7 @@
 import React from 'react';
 import { Navigate } from 'react-router-dom';
 import { useAuth } from '../contexts/AuthContext';
-import SellerLayout from './seller/SellerLayout';
+import FinalSellerLayout from './seller/FinalSellerLayout';
 
 const SellerPanel = () => {
   const { user, isAuthenticated } = useAuth();
@@ -10,7 +10,7 @@ const SellerPanel = () => {
     return <Navigate to="/login" replace />;
   }
 
-  return <SellerLayout />;
+  return <FinalSellerLayout />;
 };
 
 export default SellerPanel;
